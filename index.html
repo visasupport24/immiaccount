@@ -26,44 +26,46 @@
         /* ২. হেডার এবং নেভিগেশন বার ফিক্স (খাতার স্কেচ অনুযায়ী) */
         .main-header {
             background-color: #002b49 !important;
-            padding: 12px 20px;
+            padding: 15px 20px !important;
             display: flex !important;
             justify-content: space-between !important;
             align-items: center !important;
             position: relative;
-            z-index: 10;
+            z-index: 99999 !important;
             width: 100%;
         }
 
+        /* মেনু ও সার্চ আইকন ভিজিবিলিটি ফিক্স */
         .menu-trigger, .search-trigger {
             color: #ffffff !important;
-            font-size: 22px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 5px;
+            font-size: 24px !important;
+            cursor: pointer !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            padding: 5px !important;
             flex-shrink: 0;
-            z-index: 11;
+            z-index: 100000 !important;
         }
 
         .menu-trigger i, .search-trigger i {
             color: #ffffff !important;
-            display: inline-block;
+            display: inline-block !important;
         }
 
         /* লোগো এবং টেক্সটকে পাশাপাশি রাখার জন্য কন্টেইনার */
         .brand-container {
-            display: flex;
-            align-items: center;
-            gap: 12px;
+            display: flex !important;
+            align-items: center !important;
+            gap: 12px !important;
             flex-grow: 1;
-            margin-left: 15px;
+            margin-left: 15px !important;
+            margin-right: 15px !important;
         }
 
         .logo-box {
-            display: flex;
-            align-items: center;
+            display: flex !important;
+            align-items: center !important;
         }
 
         /* কোড দিয়ে তৈরি SVG লোগো স্টাইল */
@@ -73,24 +75,24 @@
             display: block;
         }
 
-        /* খাতার লেখার স্টাইল (ওপর-নিচ দুই লাইনে সাজানো) */
+        /* খাতার লেখার স্টাইল */
         .brand-text {
-            display: flex;
-            flex-direction: column;
-            color: #ffffff;
-            line-height: 1.2;
+            display: flex !important;
+            flex-direction: column !important;
+            color: #ffffff !important;
+            line-height: 1.2 !important;
         }
 
         .brand-text .line1 {
-            font-size: 14px;
-            font-weight: 600;
-            letter-spacing: 0.3px;
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            letter-spacing: 0.3px !important;
         }
 
         .brand-text .line2 {
-            font-size: 11px;
-            font-weight: 400;
-            opacity: 0.85;
+            font-size: 11px !important;
+            font-weight: 400 !important;
+            opacity: 0.85 !important;
         }
 
         /* ৩. সাব-হেডার কুইক লিঙ্কস */
@@ -109,6 +111,11 @@
             text-decoration: none;
             font-size: 13px;
             opacity: 0.9;
+        }
+
+        .sub-header-links a:hover {
+            text-decoration: underline;
+            opacity: 1;
         }
 
         .sub-header-links a:hover {
@@ -148,6 +155,9 @@
             margin-bottom: 30px;
             line-height: 1.2;
         }
+
+
+        
 
         /* ৫. লিঙ্ক লিস্ট সেকশন */
         .link-list {
