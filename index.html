@@ -35,26 +35,27 @@
         </ul>
     </nav>
 
-    <!-- মেইন হেডার বার (লোগো ও আইকন ফিক্সড করা হয়েছে) -->
-    <header>
-        <div class="menu-trigger" id="openMenu" style="cursor: pointer; padding: 10px; color: #ffffff !important; z-index: 999;">
-            <i class="fa-solid fa-bars" style="color: #ffffff !important; font-size: 24px;"></i>
+    <!-- মেইন হেডার বার (লোগো ও আইকন লেআউট ফিক্সড) -->
+    <header class="main-header">
+        <div class="menu-trigger" id="openMenu">
+            <i class="fa-solid fa-bars"></i>
         </div>
         <div class="logo-box">
-            <!-- সম্পূর্ণ সচল ও ব্রোকেন-মুক্ত লাইভ লোগো ইউআরএল -->
-            <img src="https://githubusercontent.com" alt="Australian Government Logo" style="height: 38px; width: auto; max-width: 100%; display: block; margin: 0 auto; filter: brightness(0) invert(1);">
+            <img src="https://githubusercontent.com" alt="Logo">
         </div>
-        <div class="search-trigger" style="cursor: pointer; padding: 10px; color: #ffffff !important;">
-            <i class="fa-solid fa-magnifying-glass" style="color: #ffffff !important; font-size: 20px;"></i>
+        <div class="search-trigger">
+            <i class="fa-solid fa-magnifying-glass"></i>
         </div>
     </header>
 
+    <!-- সাব হেডার কুইক লিংকস -->
     <div class="sub-header-links">
         <a href="#">ImmiAccount</a>
         <a href="#">Visa Entitlement Verification Online (VEVO)</a>
         <a href="#">My Tourist Refund Scheme (TRS)</a>
     </div>
 
+    <!-- মেইন ব্যানার ও কন্টেন্ট এরিয়া -->
     <main class="immigration-hero">
         <div class="welcome-text">Welcome to the Department of Home Affairs</div>
         <h1>Immigration and citizenship</h1>
@@ -87,9 +88,10 @@
         </div>
     </main>
 
+    <!-- ডার্ক ফুটার সেকশন -->
     <footer>
         <div class="footer-logo-area">
-            <img src="https://githubusercontent.com" alt="Coat of Arms" style="height: 80px; filter: brightness(0) invert(1);">
+            <img src="https://githubusercontent.com" alt="Coat of Arms">
             <h2>Australian Government</h2>
         </div>
 
@@ -117,6 +119,7 @@
         </div>
     </footer>
 
+    <!-- জাভাস্ক্রিপ্ট কোডলজিক -->
     <script>
         // ১. সাইড মেনু ওপেন/ক্লোজ করার স্ক্রিপ্ট
         const openMenuBtn = document.getElementById('openMenu');
@@ -145,7 +148,7 @@
                     const data = await response.json();
                     const container = document.getElementById('dynamicLinksContainer');
                     
-                    if(data.length > 0) {
+                    if(data && data.length > 0) {
                         container.innerHTML = '';
                         data.forEach(item => {
                             container.innerHTML += `
