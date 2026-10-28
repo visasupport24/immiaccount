@@ -43,6 +43,11 @@ header {
     cursor: pointer;
 }
 
+/* আইকন ভিজিবিলিটি শিওর করার জন্য ফিক্স */
+header .menu-trigger i, header .search-trigger i {
+    color: #ffffff !important;
+}
+
 /* ৩. সাব-হেডার কুইক লিঙ্কস */
 .sub-header-links {
     background-color: #002b49;
@@ -126,23 +131,25 @@ header {
     opacity: 0.8;
 }
 
-/* ৬. স্লাইডিং সাইড মেনু ওভারলে */
+/* ৬. স্লাইডিং সাইড মেনু এবং ওভারলে ফিক্স */
 .side-menu {
     position: fixed;
     top: 0;
-    left: -100%;
+    left: -100% !important; /* শুরুতে স্ক্রিনের বাইরে লুকিয়ে থাকবে */
     width: 85%;
     max-width: 360px;
     height: 100%;
     background-color: #ffffff;
-    z-index: 100;
+    z-index: 10000; /* যেন সবকিছুর উপরে থাকে */
     box-shadow: 5px 0 15px rgba(0,0,0,0.25);
-    transition: left 0.3s ease;
+    transition: left 0.3s ease-in-out;
     overflow-y: auto;
+    display: block !important;
 }
 
+/* জাভাস্ক্রিপ্ট যখন এই ক্লাসটি অ্যাড করবে তখন মেনু শো করবে */
 .side-menu.open {
-    left: 0;
+    left: 0 !important;
 }
 
 .menu-header {
@@ -208,12 +215,12 @@ header {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
-    z-index: 99;
+    z-index: 9999;
     display: none;
 }
 
 .menu-overlay.show {
-    display: block;
+    display: block !important;
 }
 
 /* ৭. প্রফেশনাল ডার্ক ফুটার */
@@ -227,7 +234,7 @@ footer {
 }
 
 .footer-logo-area img {
-    height: 90px;
+    height: 80px;
     margin-bottom: 15px;
 }
 
@@ -318,12 +325,4 @@ footer {
     .footer-links {
         gap: 25px;
     }
-}
-/* মেনু ওপেন করার জন্য জাভাস্ক্রিপ্ট ক্লাস ফিক্স */
-.side-menu.open {
-    left: 0 !important;
-}
-
-.menu-overlay.show {
-    display: block !important;
 }
