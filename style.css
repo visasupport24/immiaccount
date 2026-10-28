@@ -13,10 +13,10 @@ body {
     width: 100%;
 }
 
-/* ২. হেডার এবং নেভিগেশন বার ফিক্স */
+/* ২. হেডার এবং নেভিগেশন বার ফিক্স (খাতার স্কেচ অনুযায়ী) */
 .main-header {
     background-color: #002b49 !important;
-    padding: 15px 20px;
+    padding: 10px 20px;
     display: flex !important;
     justify-content: space-between !important;
     align-items: center !important;
@@ -33,6 +33,7 @@ body {
     align-items: center;
     justify-content: center;
     padding: 5px;
+    flex-shrink: 0; /* আইকন যেন ছোট হয়ে না যায় */
     z-index: 11;
 }
 
@@ -41,19 +42,46 @@ body {
     display: inline-block;
 }
 
+/* লোগো এবং টেক্সটকে পাশাপাশি রাখার জন্য কন্টেইনার */
+.brand-container {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* লোগো এবং লেখার মাঝখানের দূরত্ব */
+    flex-grow: 1;
+    margin-left: 15px; /* মেনু আইকন থেকে দূরত্ব */
+}
+
 .logo-box {
     display: flex;
     align-items: center;
-    justify-content: center;
-    flex-grow: 1;
 }
 
 .logo-box img {
-    height: 32px;
+    height: 30px; /* লোগোর সাইজ খাতার মতো এডজাস্ট করা হয়েছে */
     width: auto;
     max-width: 100%;
     display: block;
-    filter: brightness(0) invert(1) !important; /* ইমেজকে সাদা করার ম্যাজিক */
+    filter: brightness(0) invert(1) !important; /* ইমেজকে সাদা করার জন্য */
+}
+
+/* খাতার লেখার স্টাইল (ওপর-নিচ দুই লাইনে সাজানো) */
+.brand-text {
+    display: flex;
+    flex-direction: column;
+    color: #ffffff;
+    line-height: 1.2;
+}
+
+.brand-text .line1 {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+.brand-text .line2 {
+    font-size: 11px;
+    font-weight: 400;
+    opacity: 0.85;
 }
 
 /* ৩. সাব-হেডার কুইক লিঙ্কস */
@@ -139,7 +167,7 @@ body {
     opacity: 0.8;
 }
 
-/* ৬. স্লাইডিং সাইড মেনু এবং ওভারলে */
+/* 六. স্লাইডিং সাইড মেনু এবং ওভারলে */
 .side-menu {
     position: fixed;
     top: 0;
