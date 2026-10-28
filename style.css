@@ -10,42 +10,50 @@ body {
     background-color: #ffffff;
     color: #333;
     overflow-x: hidden;
+    width: 100%;
 }
 
-/* ২. হেডার এবং নেভিগেশন বার */
-header {
-    background-color: #002b49;
+/* ২. হেডার এবং নেভিগেশন বার ফিক্স */
+.main-header {
+    background-color: #002b49 !important;
     padding: 15px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
     position: relative;
     z-index: 10;
+    width: 100%;
 }
 
-.menu-trigger {
-    color: white;
+.menu-trigger, .search-trigger {
+    color: #ffffff !important;
     font-size: 22px;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 8px;
+    justify-content: center;
+    padding: 5px;
+    z-index: 11;
+}
+
+.menu-trigger i, .search-trigger i {
+    color: #ffffff !important;
+    display: inline-block;
+}
+
+.logo-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
 }
 
 .logo-box img {
-    height: 38px;
+    height: 32px;
+    width: auto;
     max-width: 100%;
-}
-
-.search-trigger {
-    color: white;
-    font-size: 20px;
-    cursor: pointer;
-}
-
-/* আইকন ভিজিবিলিটি শিওর করার জন্য ফিক্স */
-header .menu-trigger i, header .search-trigger i {
-    color: #ffffff !important;
+    display: block;
+    filter: brightness(0) invert(1) !important; /* ইমেজকে সাদা করার ম্যাজিক */
 }
 
 /* ৩. সাব-হেডার কুইক লিঙ্কস */
@@ -77,6 +85,7 @@ header .menu-trigger i, header .search-trigger i {
     color: white;
     padding: 40px 20px;
     position: relative;
+    z-index: 1;
 }
 
 /* ব্যাকগ্রাউন্ড অ্যাবস্ট্রাক্ট অ্যারো ইফেক্ট */
@@ -93,7 +102,6 @@ header .menu-trigger i, header .search-trigger i {
 
 .immigration-hero .welcome-text {
     font-size: 14px;
-    text-transform: none;
     opacity: 0.8;
     margin-bottom: 8px;
 }
@@ -131,23 +139,22 @@ header .menu-trigger i, header .search-trigger i {
     opacity: 0.8;
 }
 
-/* ৬. স্লাইডিং সাইড মেনু এবং ওভারলে ফিক্স */
+/* ৬. স্লাইডিং সাইড মেনু এবং ওভারলে */
 .side-menu {
     position: fixed;
     top: 0;
-    left: -100% !important; /* শুরুতে স্ক্রিনের বাইরে লুকিয়ে থাকবে */
+    left: -100% !important; 
     width: 85%;
     max-width: 360px;
     height: 100%;
     background-color: #ffffff;
-    z-index: 10000; /* যেন সবকিছুর উপরে থাকে */
+    z-index: 100000 !important; 
     box-shadow: 5px 0 15px rgba(0,0,0,0.25);
     transition: left 0.3s ease-in-out;
     overflow-y: auto;
     display: block !important;
 }
 
-/* জাভাস্ক্রিপ্ট যখন এই ক্লাসটি অ্যাড করবে তখন মেনু শো করবে */
 .side-menu.open {
     left: 0 !important;
 }
@@ -168,6 +175,7 @@ header .menu-trigger i, header .search-trigger i {
     gap: 10px;
     cursor: pointer;
     font-weight: 600;
+    color: white;
 }
 
 .portfolio-tab {
@@ -215,7 +223,7 @@ header .menu-trigger i, header .search-trigger i {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
-    z-index: 9999;
+    z-index: 99999 !important;
     display: none;
 }
 
@@ -234,8 +242,9 @@ footer {
 }
 
 .footer-logo-area img {
-    height: 80px;
+    height: 60px;
     margin-bottom: 15px;
+    filter: brightness(0) invert(1) !important;
 }
 
 .footer-logo-area h2 {
@@ -305,9 +314,9 @@ footer {
     font-size: 16px;
 }
 
-/* ৮. রেসপনসিভ মিডিয়া কোয়েরি (ট্যাবলেট ও পিসি স্ক্রিনের জন্য) */
+/* ৮. রেসপনসিভ মিডিয়া কোয়েরি */
 @media (min-width: 768px) {
-    header, .sub-header-links, .immigration-hero, footer {
+    .main-header, .sub-header-links, .immigration-hero, footer {
         padding-left: 10%;
         padding-right: 10%;
     }
