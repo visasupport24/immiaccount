@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Department of Home Affairs - Clone</title>
-    <!-- FontAwesome for Icons -->
+    <!-- FontAwesome for Icons (All icons will load from here) -->
     <link rel="stylesheet" href="https://cloudflare.com">
     <!-- Connecting External CSS File -->
     <link rel="stylesheet" href="style.css">
@@ -35,20 +35,19 @@
         </ul>
     </nav>
 
-        <!-- মেইন হেডার বার -->
+    <!-- মেইন হেডার বার (লোগো ও আইকন ফিক্সড করা হয়েছে) -->
     <header>
-        <div class="menu-trigger" id="openMenu" style="cursor: pointer; padding: 10px;">
-            <i class="fa-solid fa-bars"></i>
+        <div class="menu-trigger" id="openMenu" style="cursor: pointer; padding: 10px; color: #ffffff !important; z-index: 999;">
+            <i class="fa-solid fa-bars" style="color: #ffffff !important; font-size: 24px;"></i>
         </div>
         <div class="logo-box">
-            <!-- বিকল্প সচল লোগো লিঙ্ক -->
-            <img src="https://wikimedia.org" alt="Australian Government Logo" style="height: 40px; width: auto; max-width: 100%;">
+            <!-- সম্পূর্ণ সচল ও ব্রোকেন-মুক্ত লাইভ লোগো ইউআরএল -->
+            <img src="https://githubusercontent.com" alt="Australian Government Logo" style="height: 38px; width: auto; max-width: 100%; display: block; margin: 0 auto; filter: brightness(0) invert(1);">
         </div>
-        <div class="search-trigger">
-            <i class="fa-solid fa-magnifying-glass"></i>
+        <div class="search-trigger" style="cursor: pointer; padding: 10px; color: #ffffff !important;">
+            <i class="fa-solid fa-magnifying-glass" style="color: #ffffff !important; font-size: 20px;"></i>
         </div>
     </header>
-
 
     <div class="sub-header-links">
         <a href="#">ImmiAccount</a>
@@ -90,7 +89,7 @@
 
     <footer>
         <div class="footer-logo-area">
-            <img src="https://homeaffairs.gov.au" alt="Coat of Arms" style="filter: brightness(0) invert(1);">
+            <img src="https://githubusercontent.com" alt="Coat of Arms" style="height: 80px; filter: brightness(0) invert(1);">
             <h2>Australian Government</h2>
         </div>
 
@@ -138,17 +137,14 @@
         closeMenuBtn.addEventListener('click', closeMenu);
         menuOverlay.addEventListener('click', closeMenu);
 
-        // ২. ডাইনামিক ডাটাবেস ডাটা ফেচিং স্ক্রিপ্ট (Fullstack functionality)
-        // Render-এ লাইভ হওয়ার পর আপনার ব্যাকএন্ড API থেকে ডাটা নিয়ে আসার জন্য এটি কাজ করবে
+        // ২. ডাইনামিক ডাটাবেস ডাটা ফেচিং স্ক্রিপ্ট
         async function loadDatabaseContent() {
             try {
-                // আপনার সার্ভারের API এন্ডপয়েন্ট (যেমন: /api/links)
                 const response = await fetch('/api/links'); 
                 if (response.ok) {
                     const data = await response.json();
                     const container = document.getElementById('dynamicLinksContainer');
                     
-                    // ডাটাবেসে ডাটা থাকলে আগের স্ট্যাটিক লিস্টটি মুছে নতুন করে সাজাবে
                     if(data.length > 0) {
                         container.innerHTML = '';
                         data.forEach(item => {
@@ -166,7 +162,6 @@
             }
         }
 
-        // পেজ লোড হওয়ার সাথে সাথে ডাটাবেস কল হবে
         window.addEventListener('DOMContentLoaded', loadDatabaseContent);
     </script>
 </body>
