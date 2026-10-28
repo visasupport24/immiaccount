@@ -13,7 +13,7 @@ body {
     width: 100%;
 }
 
-/* ২. হেডার এবং নেভিগেশন বার ফিক্স */
+/* ২. হেডার এবং নেভিগেশন বার ফিক্স (খাতার স্কেচ অনুযায়ী) */
 .main-header {
     background-color: #002b49 !important; /* হেডার বার ডার্ক নীল */
     padding: 15px 20px !important;
@@ -105,18 +105,116 @@ body {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-/* ৪. মেইন কন্টেন্ট এরিয়া */
+/* ৪. রেজিস্ট্রেশন ফর্ম মডেল ওভারলে (Modal Styling) */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 200000 !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-box {
+    background-color: #ffffff;
+    color: #333333;
+    width: 90%;
+    max-width: 400px;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    transform: scale(0.8);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal-box {
+    transform: scale(1);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 10px;
+    color: #002b49;
+}
+
+.close-modal {
+    font-size: 20px;
+    cursor: pointer;
+    color: #64748b;
+}
+
+.close-modal:hover {
+    color: #ff4d4d;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #475569;
+}
+
+.input-group input {
+    padding: 10px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    font-size: 15px;
+    outline: none;
+    color: #333;
+}
+
+.input-group input:focus {
+    border-color: #005a9c;
+}
+
+.submit-btn {
+    background-color: #005a9c;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.2s;
+}
+
+.submit-btn:hover {
+    background-color: #002b49;
+}
+
+/* ৫. মেইন কন্টেন্ট এরিয়া */
 .main-content {
     padding: 30px 20px;
     max-width: 800px;
     margin: 0 auto;
 }
 
-/* ৫. লিঙ্ক লিস্ট সেকশন */
-.link-list {
-    margin-top: 10px;
-}
-
+/* ৬. লিঙ্ক লিস্ট সেকশন */
 .list-item {
     display: flex;
     justify-content: space-between;
@@ -140,7 +238,7 @@ body {
     opacity: 0.7;
 }
 
-/* ৬. স্লাইডিং সাইড মেনু এবং ওভারলে */
+/* ৭. স্লাইডিং সাইড মেনু */
 .side-menu {
     position: fixed;
     top: 0;
@@ -152,7 +250,6 @@ body {
     z-index: 100000 !important; 
     box-shadow: 5px 0 15px rgba(0,0,0,0.25);
     transition: left 0.3s ease-in-out;
-    overflow-y: auto;
     display: block !important;
 }
 
@@ -174,8 +271,6 @@ body {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    cursor: pointer;
-    font-weight: 600;
     color: white;
 }
 
@@ -188,7 +283,6 @@ body {
     padding-left: 15px;
     font-size: 13px;
     font-weight: 600;
-    line-height: 1.2;
 }
 
 .menu-links-list {
@@ -221,9 +315,9 @@ body {
     display: block !important;
 }
 
-/* ৭. ফুটার সেকশন */
+/* ৮. ফুটার সেকশন */
 footer {
-    background-color: #002b49; /* ফুটার ডার্ক নীল */
+    background-color: #002b49;
     color: #e0f2fe;
     padding: 40px 20px;
     text-align: center;
@@ -242,49 +336,30 @@ footer {
     font-size: 20px;
     font-weight: 500;
     margin-top: 10px;
-    font-family: Georgia, serif;
 }
 
 .footer-links {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    margin-bottom: 20px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .footer-links a {
     color: #ffffff;
     text-decoration: none;
     font-size: 14px;
-    opacity: 0.9;
 }
 
-.footer-links a:hover {
-    text-decoration: underline;
-    opacity: 1;
-}
-
-/* ৮. ট্যাবলেট ও পিসি স্ক্রিনের রেসপনসিভনেস */
 @media (min-width: 768px) {
     .sub-header-links {
         flex-direction: row;
         justify-content: center;
         gap: 25px;
     }
-    .sub-header-links a {
-        width: auto;
-        padding: 10px 25px;
-    }
     .footer-links {
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
         gap: 25px;
-    }
-    .main-content {
-        padding: 50px 10%;
     }
 }
