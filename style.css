@@ -1,0 +1,321 @@
+/* ১. গ্লোবাল এবং রিসেট স্টাইল */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #ffffff;
+    color: #333;
+    overflow-x: hidden;
+}
+
+/* ২. হেডার এবং নেভিগেশন বার */
+header {
+    background-color: #002b49;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+}
+
+.menu-trigger {
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo-box img {
+    height: 38px;
+    max-width: 100%;
+}
+
+.search-trigger {
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* ৩. সাব-হেডার কুইক লিঙ্কস */
+.sub-header-links {
+    background-color: #002b49;
+    padding: 0 20px 15px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sub-header-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+.sub-header-links a:hover {
+    text-decoration: underline;
+    opacity: 1;
+}
+
+/* ৪. ইমিগ্রেশন এবং মেইন ব্যানার সেকশন */
+.immigration-hero {
+    background-color: #005a9c;
+    color: white;
+    padding: 40px 20px;
+    position: relative;
+}
+
+/* ব্যাকগ্রাউন্ড অ্যাবস্ট্রাক্ট অ্যারো ইফেক্ট */
+.immigration-hero::after {
+    content: "➔";
+    position: absolute;
+    right: -20px;
+    bottom: -30px;
+    font-size: 250px;
+    color: rgba(255, 255, 255, 0.04);
+    transform: rotate(135deg);
+    pointer-events: none;
+}
+
+.immigration-hero .welcome-text {
+    font-size: 14px;
+    text-transform: none;
+    opacity: 0.8;
+    margin-bottom: 8px;
+}
+
+.immigration-hero h1 {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 30px;
+    line-height: 1.2;
+}
+
+/* ৫. লিঙ্ক লিস্ট সেকশন */
+.link-list {
+    margin-top: 20px;
+}
+
+.list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background 0.2s;
+}
+
+.list-item:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.list-item i {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+/* ৬. স্লাইডিং সাইড মেনু ওভারলে */
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 85%;
+    max-width: 360px;
+    height: 100%;
+    background-color: #ffffff;
+    z-index: 100;
+    box-shadow: 5px 0 15px rgba(0,0,0,0.25);
+    transition: left 0.3s ease;
+    overflow-y: auto;
+}
+
+.side-menu.open {
+    left: 0;
+}
+
+.menu-header {
+    display: flex;
+    background-color: #002b49;
+    color: white;
+    height: 55px;
+}
+
+.close-menu-btn {
+    background-color: #001f33;
+    width: 45%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.portfolio-tab {
+    width: 55%;
+    background-color: #f1f5f9;
+    color: #334155;
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.menu-links-list {
+    list-style: none;
+}
+
+.menu-links-list li a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    color: #005a9c;
+    text-decoration: none;
+    font-size: 16px;
+    border-bottom: 1px solid #e2e8f0;
+    font-weight: 400;
+}
+
+.menu-links-list li a:hover {
+    background-color: #f8fafc;
+}
+
+.menu-links-list li a i {
+    font-size: 14px;
+    color: #64748b;
+}
+
+/* ব্যাকড্রপ ওভারলে */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 99;
+    display: none;
+}
+
+.menu-overlay.show {
+    display: block;
+}
+
+/* ৭. প্রফেশনাল ডার্ক ফুটার */
+footer {
+    background-color: #111111;
+    color: #bcbcbc;
+    padding: 40px 20px;
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.footer-logo-area img {
+    height: 90px;
+    margin-bottom: 15px;
+}
+
+.footer-logo-area h2 {
+    color: white;
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 25px;
+    font-family: Georgia, serif;
+}
+
+.footer-text {
+    max-width: 700px;
+    margin: 0 auto 30px auto;
+    text-align: justify;
+    font-size: 13px;
+    color: #a3a3a3;
+}
+
+.footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.footer-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 13px;
+    border-bottom: 1px solid transparent;
+}
+
+.footer-links a:hover {
+    border-bottom: 1px solid white;
+}
+
+.back-to-top {
+    color: white;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 13px;
+    margin-bottom: 25px;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.social-btn {
+    background-color: #005a9c;
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+/* ৮. রেসপনসিভ মিডিয়া কোয়েরি (ট্যাবলেট ও পিসি স্ক্রিনের জন্য) */
+@media (min-width: 768px) {
+    header, .sub-header-links, .immigration-hero, footer {
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+    .sub-header-links {
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 25px;
+    }
+    .immigration-hero h1 {
+        font-size: 44px;
+    }
+    .link-list {
+        max-width: 800px;
+    }
+    .footer-links {
+        gap: 25px;
+    }
+}
