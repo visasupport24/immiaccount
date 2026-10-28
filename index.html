@@ -35,14 +35,15 @@
         </ul>
     </nav>
 
-    <!-- রেজিস্ট্রেশন ফর্ম মডেল (Registration Form Modal) -->
+    <!-- ডাইনামিক লগইন ও রেজিস্ট্রেশন মডাল ফর্ম -->
     <div class="modal-overlay" id="regModal">
         <div class="modal-box">
             <div class="modal-header">
-                <h3>Create ImmiAccount</h3>
+                <h3 id="modalTitle">ImmiAccount Login</h3>
                 <i class="fa-solid fa-xmark close-modal" id="closeModal"></i>
             </div>
-            <form id="registerForm">
+            
+            <form id="immiForm">
                 <div class="input-group">
                     <label for="username">Username or Email</label>
                     <input type="text" id="username" placeholder="Enter username" required>
@@ -51,17 +52,24 @@
                     <label for="password">Password</label>
                     <input type="password" id="password" placeholder="Enter password" required>
                 </div>
-                <div class="input-group">
+                <!-- কনফার্ম পাসওয়ার্ড (ডিফল্টভাবে হাইড থাকবে) -->
+                <div class="input-group" id="confirmPasswordGroup" style="display: none;">
                     <label for="confirmPassword">Confirm Password</label>
-                    <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+                    <input type="password" id="confirmPassword" placeholder="Confirm your password">
                 </div>
-                <button type="submit" class="submit-btn">Create Account</button>
+                <button type="submit" class="submit-btn" id="submitBtn">Sign In</button>
             </form>
+            
+            <div class="form-toggle-text" style="margin-top: 15px; font-size: 14px; text-align: center; color: #475569;">
+                <span id="togglePrompt">Don't have an account?</span> 
+                <a href="#" id="toggleFormLink" style="color: #005a9c; text-decoration: none; font-weight: 600;">Create Account</a>
+            </div>
+            
             <div id="formMessage" style="margin-top: 15px; font-size: 14px; text-align: center; font-weight: 600;"></div>
         </div>
     </div>
 
-    <!-- হেডার এরিয়া -->
+    <!-- হেডার এরিয়া (খাতার ড্রয়িং অনুযায়ী) -->
     <header class="main-header">
         <div class="menu-trigger" id="openMenu">
             <i class="fa-solid fa-bars"></i>
@@ -89,8 +97,7 @@
     </header>
 
     <div class="sub-header-links">
-        <!-- এখানে href="#" দেওয়া হয়েছে এবং id="immiBtn" যুক্ত করা হয়েছে -->
-        <a href="#" id="immiBtn"><i class="fa-solid fa-user-plus" style="margin-right: 5px;"></i> Immi Account</a>
+        <a href="#" id="immiBtn"><i class="fa-solid fa-user" style="margin-right: 5px;"></i> Immi Account</a>
         <a href="#"><i class="fa-solid fa-id-card" style="margin-right: 5px;"></i> Visa Entitlement Verification online (VEVO)</a>
     </div>
 
@@ -164,91 +171,137 @@
         closeMenuBtn.addEventListener('click', closeMenu);
         menuOverlay.addEventListener('click', closeMenu);
 
-        // ২. ইমি অ্যাকাউন্ট পপ-আপ ফর্ম কন্ট্রোল
+        // ২. ইমি অ্যাকাউন্ট পপ-আপ এবং মোড সুইচিং লজিক
         const immiBtn = document.getElementById('immiBtn');
         const regModal = document.getElementById('regModal');
         const closeModal = document.getElementById('closeModal');
-        const registerForm = document.getElementById('registerForm');
+        const immiForm = document.getElementById('immiForm');
         const formMessage = document.getElementById('formMessage');
+        
+        const modalTitle = document.getElementById('modalTitle');
+        const confirmPasswordGroup = document.getElementById('confirmPasswordGroup');
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+        const submitBtn = document.getElementById('submitBtn');
+        const togglePrompt = document.getElementById('togglePrompt');
+        const toggleFormLink = document.getElementById('toggleFormLink');
 
-        // বাটনে ক্লিক করলে ফর্ম খুলবে
+        let isLoginMode = true; 
+
         immiBtn.addEventListener('click', (e) => {
             e.preventDefault();
             regModal.classList.add('active');
         });
 
-        // X বাটনে ক্লিক করলে ফর্ম বন্ধ হবে
         closeModal.addEventListener('click', () => {
             regModal.classList.remove('active');
             formMessage.innerText = '';
-            registerForm.reset();
+            immiForm.reset();
+            resetToLoginMode();
         });
 
-        // ৩. অ্যাকাউন্ট তৈরি করার সাবমিট লজিক (Fetch API দিয়ে ব্যাকএন্ডে পাঠানো)
-        registerForm.addEventListener('submit', async (e) => {
+        toggleFormLink.addEventListener('click', (e) => {
             e.preventDefault();
+            formMessage.innerText = '';
+            immiForm.reset();
+            
+                        if (isLoginMode) {
+                isLoginMode = false;
+                modalTitle.innerText = "Create ImmiAccount";
+                confirmPasswordGroup.style.display = "flex";
+                confirmPasswordInput.setAttribute('required', 'required');
+                submitBtn.innerText = "Create Account";
+                togglePrompt.innerText = "Already have an account?";
+                toggleFormLink.innerText = "Sign In";
+            } else {
+                resetToLoginMode();
+            }
+        });
+
+        function resetToLoginMode() {
+            isLoginMode = true;
+            modalTitle.innerText = "ImmiAccount Login";
+            confirmPasswordGroup.style.display = "none";
+            confirmPasswordInput.removeAttribute('required');
+            submitBtn.innerText = "Sign In";
+            togglePrompt.innerText = "Don't have an account?";
+            toggleFormLink.innerText = "Create Account";
+        }
+
+        // ৩. ফর্ম সাবমিট হ্যান্ডলার (লগইন ও সাইনআপ)
+        immiForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            formMessage.innerText = '';
             
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
 
-            if (password !== confirmPassword) {
-                formMessage.style.color = '#ff4d4d';
-                formMessage.innerText = "Passwords do not match!";
-                return;
+            if (!isLoginMode) {
+                const confirmPassword = confirmPasswordInput.value;
+                if (password !== confirmPassword) {
+                    formMessage.style.color = '#ff4d4d';
+                    formMessage.innerText = "Passwords do not match!";
+                    return;
+                }
+
+                try {
+                    const response = await fetch('/api/register', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ username, password })
+                    });
+                    const result = await response.json();
+
+                    if (result.success) {
+                        formMessage.style.color = '#00cc88';
+                        formMessage.innerText = "Account created successfully! Switching to Login...";
+                        setTimeout(() => {
+                            resetToLoginMode();
+                            formMessage.innerText = '';
+                        }, 2000);
+                    } else {
+                        formMessage.style.color = '#ff4d4d';
+                        formMessage.innerText = result.message || "Registration failed!";
+                    }
+                } catch (error) {
+                    formMessage.style.color = '#ff4d4d';
+                    formMessage.innerText = "Server error! Try again.";
+                }
+            } else {
+                formMessage.style.color = '#00cc88';
+                formMessage.innerText = "Logging in successfully...";
+                setTimeout(() => {
+                    regModal.classList.remove('active');
+                    immiForm.reset();
+                }, 1500);
             }
+        });
 
+        // ৪. ডাটাবেস থেকে ডাইনামিক লিঙ্ক ফেচিং
+        async function loadDatabaseContent() {
             try {
-                // ব্যাকএন্ডের /api/register এন্ডপয়েন্টে ডেটা পাঠানো হচ্ছে
-                const response = await fetch('/api/register', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, password })
-                });
-
-                const result = await response.json();
-
-                        if (result.success) {
-            formMessage.style.color = '#00ffcc';
-            formMessage.innerText = "Account created successfully!";
-            registerForm.reset();
-            // ২ সেকেন্ড পর অটোমেটিক ফর্ম বন্ধ হবে
-            setTimeout(() => regModal.classList.remove('active'), 2000);
-        } else {
-            formMessage.style.color = '#ff4d4d';
-            formMessage.innerText = result.message || "Registration failed!";
-        }
-    } catch (error) {
-        formMessage.style.color = '#ff4d4d';
-        formMessage.innerText = "Server error! Try again later.";
-    }
-});
-
-// ৪. লিঙ্ক লোড করার ডাটাবেস স্ক্রিপ্ট
-async function loadDatabaseContent() {
-    try {
-        const response = await fetch('/api/links'); 
-        if (response.ok) {
-            const data = await response.json();
-            const container = document.getElementById('dynamicLinksContainer');
-            
-            if(data && data.length > 0) {
-                container.innerHTML = '';
-                data.forEach(item => {
-                    container.innerHTML += `
-                        <a href="${item.url || '#'}" class="list-item">
-                            <span>${item.title}</span>
-                            <i class="fa-solid fa-chevron-right"></i>
-                        </a>
-                    `;
-                });
+                const response = await fetch('/api/links'); 
+                if (response.ok) {
+                    const data = await response.json();
+                    const container = document.getElementById('dynamicLinksContainer');
+                    
+                    if(data && data.length > 0) {
+                        container.innerHTML = '';
+                        data.forEach(item => {
+                            container.innerHTML += `
+                                <a href="${item.url || '#'}" class="list-item">
+                                    <span>${item.title}</span>
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </a>
+                            `;
+                        });
+                    }
+                }
+            } catch (error) {
+                console.log("Database fetch error, using default hardcoded links:", error);
             }
         }
-    } catch (error) {
-        console.log("Database fetch error, using default hardcoded links:", error);
-    }
-}
-window.addEventListener('DOMContentLoaded', loadDatabaseContent);
-</script>
+        window.addEventListener('DOMContentLoaded', loadDatabaseContent);
+    </script>
 </body>
 </html>
+
