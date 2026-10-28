@@ -113,55 +113,75 @@
         </div>
     </header>
 
-    <!-- ডাইনামিক সাব-হেডার বার (স্কেচ অনুযায়ী লগইন স্টেট হ্যান্ডলার) -->
-    <div class="sub-header-links" id="defaultNav">
+        <div class="sub-header-links">
         <a href="#" id="immiBtn"><i class="fa-solid fa-user" style="margin-right: 5px;"></i> Immi Account</a>
         <a href="#"><i class="fa-solid fa-id-card" style="margin-right: 5px;"></i> Visa Entitlement Verification online (VEVO)</a>
     </div>
 
-    <!-- লগার-ইন ড্যাশবোর্ড বার (ডিফল্টভাবে হাইড থাকবে, লগইন করলে শো হবে) -->
-    <div class="dashboard-nav" id="dashboardNav" style="display: none;">
-        <span class="user-display" id="userDisplay"><i class="fa-solid fa-circle-user"></i> Username</span>
-        <div class="dropdown-wrapper">
-            <button class="dropdown-btn" id="visaEntitleBtn">Visa Entitlement <i class="fa-solid fa-chevron-down"></i></button>
-            <div class="dropdown-menu" id="visaDropdown">
-                <a href="#" class="dropdown-item">Check Nominee status</a>
-                <a href="#" class="dropdown-item">Check Visa status</a>
+    <!-- পিডিএফ ফাইল আপলোড মডাল (খাতার স্কেচ অনুযায়ী) -->
+    <div class="modal-overlay" id="fileUploadModal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3>Upload Document: <span id="uploadTypeTitle"></span></h3>
+                <i class="fa-solid fa-xmark close-modal" onclick="closeUploadModal()"></i>
             </div>
+            <form id="uploadForm" class="upload-box-wrapper">
+                <label class="file-select-btn">
+                    <i class="fa-solid fa-file-pdf" style="font-size: 30px; color: #005a9c; margin-bottom: 8px; display:block;"></i>
+                    <span>Select PDF Document</span>
+                    <input type="file" id="pdfInput" accept="application/pdf" style="display: none;">
+                </label>
+                <button type="submit" class="submit-btn">Submit PDF</button>
+            </form>
+            <div id="uploadStatus" style="margin-top: 15px; font-size: 14px; text-align: center; font-weight: 600;"></div>
         </div>
     </div>
 
-    <!-- মেইন কন্টেন্ট এরিয়া -->
+    <!-- প্রধান কন্টেন্ট এরিয়া -->
     <main class="main-content">
-        <!-- ১. সাধারণ ভিজিটর কন্টেন্ট লিস্ট -->
-        <div class="link-list" id="dynamicLinksContainer">
-            <a href="#" class="list-item"><span>Entering and leaving Australia</span><i class="fa-solid fa-chevron-right"></i></a>
-            <a href="#" class="list-item"><span>Visas</span><i class="fa-solid fa-chevron-right"></i></a>
-            <a href="#" class="list-item"><span>Australia citizenship</span><i class="fa-solid fa-chevron-right"></i></a>
-            <a href="#" class="list-item"><span>What we do</span><i class="fa-solid fa-chevron-right"></i></a>
-            <a href="#" class="list-item"><span>Settling in Australia</span><i class="fa-solid fa-chevron-right"></i></a>
-            <a href="#" class="list-item"><span>Help and support</span><i class="fa-solid fa-chevron-right"></i></a>
+        
+        <!-- ক) ভিজিটর ভিউ: লগইন করার আগে সাধারণ ইউজাররা এটি দেখবে -->
+        <div id="visitorView">
+            <div class="link-list" id="dynamicLinksContainer">
+                <a href="#" class="list-item"><span>Entering and leaving Australia</span><i class="fa-solid fa-chevron-right"></i></a>
+                <a href="#" class="list-item"><span>Visas</span><i class="fa-solid fa-chevron-right"></i></a>
+                <a href="#" class="list-item"><span>Australia citizenship</span><i class="fa-solid fa-chevron-right"></i></a>
+                <a href="#" class="list-item"><span>What we do</span><i class="fa-solid fa-chevron-right"></i></a>
+                <a href="#" class="list-item"><span>Settling in Australia</span><i class="fa-solid fa-chevron-right"></i></a>
+                <a href="#" class="list-item"><span>Help and support</span><i class="fa-solid fa-chevron-right"></i></a>
+            </div>
         </div>
 
-        <!-- ২. লগইন করার পর সাকসেসফুল ড্যাশবোর্ড কন্টেন্ট (ডিফল্ট হাইড) -->
-        <div class="dashboard-content" id="dashboardContent" style="display: none;">
-            <div class="action-card" id="applyNomineeBtn">
-                <div class="card-left">
-                    <span class="step-num">(1)</span>
-                    <h3>Apply for nominee</h3>
-                </div>
-                <i class="fa-solid fa-file-pdf pdf-icon"></i>
+        <!-- খ) ড্যাশবোর্ড ভিউ: সফলভাবে লগইন করার পর খাতার ডিজাইন অনুযায়ী এটি ওপেন হবে -->
+        <div id="dashboardView" style="display: none;">
+            <div class="user-info-display">
+                Logged in as: <span id="userDisplayName"></span>
             </div>
             
-            <div class="action-card" id="applyVisaBtn">
-                <div class="card-left">
-                    <span class="step-num">(2)</span>
-                    <h3>Apply for visa</h3>
+            <div class="link-list">
+                <!-- ১. অ্যাপ্লাই অপশনসমূহ (ক্লিক করলে ফাইল আপলোড অপশন খুলবে) -->
+                <a href="#" class="list-item" onclick="openFileUpload('Apply for Nominee')">
+                    <span>(1) Apply for nominee</span>
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                </a>
+                <a href="#" class="list-item" onclick="openFileUpload('Apply for Visa')">
+                    <span>(2) Apply for visa</span>
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                </a>
+                
+                <!-- ২. ভিসা এনটাইটেলমেন্ট ড্রপডাউন বাটন -->
+                <div class="dropdown-container" style="margin-top: 20px;">
+                    <button onclick="toggleVisaDropdown()" style="width:100%;">Visa Entitlement <i class="fa-solid fa-chevron-down" style="margin-left: 8px;"></i></button>
+                    <ul class="dropdown-menu" id="visaDropdownMenu">
+                        <li><button onclick="alert('Checking Nominee Status...')">Check Nominee status</button></li>
+                        <li><button onclick="alert('Checking Visa Status...')">Check Visa status</button></li>
+                    </ul>
                 </div>
-                <i class="fa-solid fa-file-pdf pdf-icon"></i>
             </div>
         </div>
+
     </main>
+
 
     <footer>
         <div class="footer-logo-area">
