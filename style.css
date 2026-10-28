@@ -13,7 +13,7 @@ body {
     width: 100%;
 }
 
-/* ২. হেডার এবং নেভিগেশন বার ফিক্স (খাতার স্কেচ অনুযায়ী) */
+/* ২. হেডার বার ডিজাইন (খাতার স্কেচ অনুযায়ী) */
 .main-header {
     background-color: #002b49 !important; /* হেডার বার ডার্ক নীল */
     padding: 15px 20px !important;
@@ -37,7 +37,6 @@ body {
     z-index: 100000 !important;
 }
 
-/* লোগো এবং টেক্সট কন্টেইনার */
 .brand-container {
     display: flex !important;
     align-items: center !important;
@@ -58,7 +57,6 @@ body {
     display: block;
 }
 
-/* খাতার মেইন হেডিং টেক্সট স্টাইল */
 .brand-text {
     display: flex !important;
     flex-direction: column !important;
@@ -78,7 +76,7 @@ body {
     opacity: 0.85 !important;
 }
 
-/* ৩. সাব-হেডার কুইক লিঙ্কস (Immi Account & VEVO) */
+/* ৩. সাব-হেডার বাটনসমূহ (Quick Links) */
 .sub-header-links {
     background-color: #003d6b;
     padding: 15px 20px;
@@ -89,7 +87,14 @@ body {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.sub-header-links a {
+.sub-header-links-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+.sub-header-links a, .sub-header-links button {
     color: #ffffff;
     text-decoration: none;
     font-size: 14px;
@@ -99,13 +104,62 @@ body {
     border-radius: 4px;
     border: 1px solid rgba(255, 255, 255, 0.2);
     transition: background 0.2s;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.sub-header-links a:hover {
+.sub-header-links a:hover, .sub-header-links button:hover {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-/* ৪. রেজিস্ট্রেশন ও লগইন ফর্ম মডেল ওভারলে (Modal Styling) */
+/* 🆕 ইউজারনেম ডিসপ্লে এরিয়া স্টাইল */
+.user-info-display {
+    color: #00ffcc;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 5px;
+    border-bottom: 1px dashed rgba(0, 255, 204, 0.4);
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+/* 🆕 ড্রপডাউন মেনু কন্টেইনার */
+.dropdown-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.dropdown-menu {
+    display: none;
+    background-color: #002b49;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    margin-top: 5px;
+    padding: 5px 0;
+    list-style: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.dropdown-menu li button {
+    width: 100%;
+    background: none;
+    border: none;
+    color: #ffffff;
+    padding: 10px 15px;
+    text-align: left;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.dropdown-menu li button:hover {
+    background-color: #005a9c;
+}
+
+/* ৪. মডাল পপ-আপ ফর্ম ডিজাইন (Modal Overlay) */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -207,6 +261,28 @@ body {
     background-color: #002b49;
 }
 
+/* 🆕 পিডিএফ ফাইল আপলোড মডাল কাস্টম স্টাইল */
+.upload-box-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    color: #333333;
+}
+
+.file-select-btn {
+    border: 2px dashed #cbd5e1;
+    padding: 20px;
+    text-align: center;
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: #f8fafc;
+    transition: border-color 0.2s;
+}
+
+.file-select-btn:hover {
+    border-color: #005a9c;
+}
+
 /* ৫. মেইন কন্টেন্ট এরিয়া */
 .main-content {
     padding: 30px 20px;
@@ -214,7 +290,7 @@ body {
     margin: 0 auto;
 }
 
-/* 💻 লিঙ্ক লিস্ট সেকশন */
+/* ৬. লিঙ্ক লিস্ট সেকশন */
 .list-item {
     display: flex;
     justify-content: space-between;
@@ -238,7 +314,7 @@ body {
     opacity: 0.7;
 }
 
-/* ৬. স্লাইডিং সাইড মেনু ড্রয়ার */
+/* ৭. স্লাইডিং সাইড মেনু ড্রয়ার */
 .side-menu {
     position: fixed;
     top: 0;
@@ -315,7 +391,7 @@ body {
     display: block !important;
 }
 
-/* ৭. ফুটার সেকশন */
+/* ৮. ডার্ক ফুটার সেকশন */
 footer {
     background-color: #002b49;
     color: #e0f2fe;
@@ -350,14 +426,17 @@ footer {
     font-size: 14px;
 }
 
-/* ৮. রেসপনসিভ ব্রেকপয়েন্ট */
+/* ৯. রেসপনসিভ ব্রেকপয়েন্ট (ট্যাবলেট ও পিসির জন্য) */
 @media (min-width: 768px) {
-    .sub-header-links {
+    .sub-header-links-inner {
         flex-direction: row;
         justify-content: center;
         gap: 25px;
     }
-    .sub-header-links a {
+    .dropdown-container {
+        width: auto;
+    }
+    .sub-header-links a, .sub-header-links button {
         width: auto;
         padding: 10px 25px;
     }
@@ -366,5 +445,10 @@ footer {
         flex-wrap: wrap;
         justify-content: center;
         gap: 25px;
+    }
+    .dropdown-menu {
+        position: absolute;
+        left: 0;
+        width: 250px;
     }
 }
