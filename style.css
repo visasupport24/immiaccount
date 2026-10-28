@@ -319,3 +319,11 @@ footer {
         gap: 25px;
     }
 }
+/* মেনু ওপেন করার জন্য জাভাস্ক্রিপ্ট ক্লাস ফিক্স */
+.side-menu.open {
+    left: 0 !important;
+}
+
+.menu-overlay.show {
+    display: block !important;
+}
