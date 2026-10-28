@@ -52,7 +52,6 @@
                     <label for="password">Password</label>
                     <input type="password" id="password" placeholder="Enter password" required>
                 </div>
-                <!-- কনফার্ম পাসওয়ার্ড (ডিফল্টভাবে হাইড থাকবে) -->
                 <div class="input-group" id="confirmPasswordGroup" style="display: none;">
                     <label for="confirmPassword">Confirm Password</label>
                     <input type="password" id="confirmPassword" placeholder="Confirm your password">
@@ -69,7 +68,25 @@
         </div>
     </div>
 
-    <!-- হেডার এরিয়া (খাতার ড্রয়িং অনুযায়ী) -->
+    <!-- পিডিএফ আপলোড করার পপ-আপ মডাল (খাতার স্কেচ অনুযায়ী) -->
+    <div class="modal-overlay" id="uploadModal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3 id="uploadModalTitle">Application Form</h3>
+                <i class="fa-solid fa-xmark close-modal" id="closeUploadModal"></i>
+            </div>
+            <form id="pdfUploadForm">
+                <div class="input-group">
+                    <label for="pdfFile" id="uploadLabel">Upload Your Document (PDF)</label>
+                    <input type="file" id="pdfFile" accept="application/pdf" required style="padding: 5px;">
+                </div>
+                <button type="submit" class="submit-btn">Submit Application</button>
+            </form>
+            <div id="uploadMessage" style="margin-top: 15px; font-size: 14px; text-align: center; font-weight: 600; color: #00cc88;"></div>
+        </div>
+    </div>
+
+    <!-- হেডার এরিয়া -->
     <header class="main-header">
         <div class="menu-trigger" id="openMenu">
             <i class="fa-solid fa-bars"></i>
@@ -96,37 +113,53 @@
         </div>
     </header>
 
-    <div class="sub-header-links">
+    <!-- ডাইনামিক সাব-হেডার বার (স্কেচ অনুযায়ী লগইন স্টেট হ্যান্ডলার) -->
+    <div class="sub-header-links" id="defaultNav">
         <a href="#" id="immiBtn"><i class="fa-solid fa-user" style="margin-right: 5px;"></i> Immi Account</a>
         <a href="#"><i class="fa-solid fa-id-card" style="margin-right: 5px;"></i> Visa Entitlement Verification online (VEVO)</a>
     </div>
 
+    <!-- লগার-ইন ড্যাশবোর্ড বার (ডিফল্টভাবে হাইড থাকবে, লগইন করলে শো হবে) -->
+    <div class="dashboard-nav" id="dashboardNav" style="display: none;">
+        <span class="user-display" id="userDisplay"><i class="fa-solid fa-circle-user"></i> Username</span>
+        <div class="dropdown-wrapper">
+            <button class="dropdown-btn" id="visaEntitleBtn">Visa Entitlement <i class="fa-solid fa-chevron-down"></i></button>
+            <div class="dropdown-menu" id="visaDropdown">
+                <a href="#" class="dropdown-item">Check Nominee status</a>
+                <a href="#" class="dropdown-item">Check Visa status</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- মেইন কন্টেন্ট এরিয়া -->
     <main class="main-content">
+        <!-- ১. সাধারণ ভিজিটর কন্টেন্ট লিস্ট -->
         <div class="link-list" id="dynamicLinksContainer">
-            <a href="#" class="list-item">
-                <span>Entering and leaving Australia</span>
-                <i class="fa-solid fa-chevron-right"></i>
-            </a>
-            <a href="#" class="list-item">
-                <span>Visas</span>
-                <i class="fa-solid fa-chevron-right"></i>
-            </a>
-            <a href="#" class="list-item">
-                <span>Australia citizenship</span>
-                <i class="fa-solid fa-chevron-right"></i>
-            </a>
-            <a href="#" class="list-item">
-                <span>What we do</span>
-                <i class="fa-solid fa-chevron-right"></i>
-            </a>
-            <a href="#" class="list-item">
-                <span>Settling in Australia</span>
-                <i class="fa-solid fa-chevron-right"></i>
-            </a>
-            <a href="#" class="list-item">
-                <span>Help and support</span>
-                <i class="fa-solid fa-chevron-right"></i>
-            </a>
+            <a href="#" class="list-item"><span>Entering and leaving Australia</span><i class="fa-solid fa-chevron-right"></i></a>
+            <a href="#" class="list-item"><span>Visas</span><i class="fa-solid fa-chevron-right"></i></a>
+            <a href="#" class="list-item"><span>Australia citizenship</span><i class="fa-solid fa-chevron-right"></i></a>
+            <a href="#" class="list-item"><span>What we do</span><i class="fa-solid fa-chevron-right"></i></a>
+            <a href="#" class="list-item"><span>Settling in Australia</span><i class="fa-solid fa-chevron-right"></i></a>
+            <a href="#" class="list-item"><span>Help and support</span><i class="fa-solid fa-chevron-right"></i></a>
+        </div>
+
+        <!-- ২. লগইন করার পর সাকসেসফুল ড্যাশবোর্ড কন্টেন্ট (ডিফল্ট হাইড) -->
+        <div class="dashboard-content" id="dashboardContent" style="display: none;">
+            <div class="action-card" id="applyNomineeBtn">
+                <div class="card-left">
+                    <span class="step-num">(1)</span>
+                    <h3>Apply for nominee</h3>
+                </div>
+                <i class="fa-solid fa-file-pdf pdf-icon"></i>
+            </div>
+            
+            <div class="action-card" id="applyVisaBtn">
+                <div class="card-left">
+                    <span class="step-num">(2)</span>
+                    <h3>Apply for visa</h3>
+                </div>
+                <i class="fa-solid fa-file-pdf pdf-icon"></i>
+            </div>
         </div>
     </main>
 
@@ -152,156 +185,221 @@
     </footer>
 
     <script>
-        // ১. সাইড মেনু কন্ট্রোল
-        const openMenuBtn = document.getElementById('openMenu');
-        const closeMenuBtn = document.getElementById('closeMenu');
-        const sideMenu = document.getElementById('sideMenu');
-        const menuOverlay = document.getElementById('menuOverlay');
+    // ১. সাইড মেনু কন্ট্রোল
+    const openMenuBtn = document.getElementById('openMenu');
+    const closeMenuBtn = document.getElementById('closeMenu');
+    const sideMenu = document.getElementById('sideMenu');
+    const menuOverlay = document.getElementById('menuOverlay');
 
-        openMenuBtn.addEventListener('click', () => {
-            sideMenu.classList.add('open');
-            menuOverlay.classList.add('show');
-        });
+    openMenuBtn.addEventListener('click', () => {
+        sideMenu.classList.add('open');
+        menuOverlay.classList.add('show');
+    });
 
-        const closeMenu = () => {
-            sideMenu.classList.remove('open');
-            menuOverlay.classList.remove('show');
-        };
+    const closeMenu = () => {
+        sideMenu.classList.remove('open');
+        menuOverlay.classList.remove('show');
+    };
 
-        closeMenuBtn.addEventListener('click', closeMenu);
-        menuOverlay.addEventListener('click', closeMenu);
+    closeMenuBtn.addEventListener('click', closeMenu);
+    menuOverlay.addEventListener('click', closeMenu);
 
-        // ২. ইমি অ্যাকাউন্ট পপ-আপ এবং মোড সুইচিং লজিক
-        const immiBtn = document.getElementById('immiBtn');
-        const regModal = document.getElementById('regModal');
-        const closeModal = document.getElementById('closeModal');
-        const immiForm = document.getElementById('immiForm');
-        const formMessage = document.getElementById('formMessage');
+    // ২. ইমি অ্যাকাউন্ট পপ-আপ এবং মোড সুইচিং লজিক
+    const immiBtn = document.getElementById('immiBtn');
+    const regModal = document.getElementById('regModal');
+    const closeModal = document.getElementById('closeModal');
+    const immiForm = document.getElementById('immiForm');
+    const formMessage = document.getElementById('formMessage');
+    
+    const modalTitle = document.getElementById('modalTitle');
+    const confirmPasswordGroup = document.getElementById('confirmPasswordGroup');
+    const confirmPasswordInput = document.getElementById('confirmPassword');
+    const submitBtn = document.getElementById('submitBtn');
+    const togglePrompt = document.getElementById('togglePrompt');
+    const toggleFormLink = document.getElementById('toggleFormLink');
+
+    let isLoginMode = true; 
+
+    immiBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        regModal.classList.add('active');
+    });
+
+    closeModal.addEventListener('click', () => {
+        regModal.classList.remove('active');
+        formMessage.innerText = '';
+        immiForm.reset();
+        resetToLoginMode();
+    });
+
+    toggleFormLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        formMessage.innerText = '';
+        immiForm.reset();
         
-        const modalTitle = document.getElementById('modalTitle');
-        const confirmPasswordGroup = document.getElementById('confirmPasswordGroup');
-        const confirmPasswordInput = document.getElementById('confirmPassword');
-        const submitBtn = document.getElementById('submitBtn');
-        const togglePrompt = document.getElementById('togglePrompt');
-        const toggleFormLink = document.getElementById('toggleFormLink');
-
-        let isLoginMode = true; 
-
-        immiBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            regModal.classList.add('active');
-        });
-
-        closeModal.addEventListener('click', () => {
-            regModal.classList.remove('active');
-            formMessage.innerText = '';
-            immiForm.reset();
+        if (isLoginMode) {
+            isLoginMode = false;
+            modalTitle.innerText = "Create ImmiAccount";
+            confirmPasswordGroup.style.display = "flex";
+            confirmPasswordInput.setAttribute('required', 'required');
+            submitBtn.innerText = "Create Account";
+            togglePrompt.innerText = "Already have an account?";
+            toggleFormLink.innerText = "Sign In";
+        } else {
             resetToLoginMode();
-        });
-
-        toggleFormLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            formMessage.innerText = '';
-            immiForm.reset();
-            
-                        if (isLoginMode) {
-                isLoginMode = false;
-                modalTitle.innerText = "Create ImmiAccount";
-                confirmPasswordGroup.style.display = "flex";
-                confirmPasswordInput.setAttribute('required', 'required');
-                submitBtn.innerText = "Create Account";
-                togglePrompt.innerText = "Already have an account?";
-                toggleFormLink.innerText = "Sign In";
-            } else {
-                resetToLoginMode();
-            }
-        });
-
-        function resetToLoginMode() {
-            isLoginMode = true;
-            modalTitle.innerText = "ImmiAccount Login";
-            confirmPasswordGroup.style.display = "none";
-            confirmPasswordInput.removeAttribute('required');
-            submitBtn.innerText = "Sign In";
-            togglePrompt.innerText = "Don't have an account?";
-            toggleFormLink.innerText = "Create Account";
         }
+    });
 
-        // ৩. ফর্ম সাবমিট হ্যান্ডলার (লগইন ও সাইনআপ)
-        immiForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            formMessage.innerText = '';
-            
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
+    function resetToLoginMode() {
+        isLoginMode = true;
+        modalTitle.innerText = "ImmiAccount Login";
+        confirmPasswordGroup.style.display = "none";
+        confirmPasswordInput.removeAttribute('required');
+        submitBtn.innerText = "Sign In";
+        togglePrompt.innerText = "Don't have an account?";
+        toggleFormLink.innerText = "Create Account";
+    }
 
-            if (!isLoginMode) {
-                const confirmPassword = confirmPasswordInput.value;
-                if (password !== confirmPassword) {
-                    formMessage.style.color = '#ff4d4d';
-                    formMessage.innerText = "Passwords do not match!";
-                    return;
-                }
+    // ৩. ফর্ম সাবমিট হ্যান্ডলার (লগইন ও সাইনআপ) এবং ড্যাশবোর্ড সুইচ মেকানিজম
+    immiForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        formMessage.innerText = '';
+        
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
 
-                try {
-                    const response = await fetch('/api/register', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ username, password })
-                    });
-                    const result = await response.json();
-
-                    if (result.success) {
-                        formMessage.style.color = '#00cc88';
-                        formMessage.innerText = "Account created successfully! Switching to Login...";
-                        setTimeout(() => {
-                            resetToLoginMode();
-                            formMessage.innerText = '';
-                        }, 2000);
-                    } else {
-                        formMessage.style.color = '#ff4d4d';
-                        formMessage.innerText = result.message || "Registration failed!";
-                    }
-                } catch (error) {
-                    formMessage.style.color = '#ff4d4d';
-                    formMessage.innerText = "Server error! Try again.";
-                }
-            } else {
-                formMessage.style.color = '#00cc88';
-                formMessage.innerText = "Logging in successfully...";
-                setTimeout(() => {
-                    regModal.classList.remove('active');
-                    immiForm.reset();
-                }, 1500);
+        if (!isLoginMode) {
+            // রেজিস্ট্রেশন প্রসেস
+            const confirmPassword = confirmPasswordInput.value;
+            if (password !== confirmPassword) {
+                formMessage.style.color = '#ff4d4d';
+                formMessage.innerText = "Passwords do not match!";
+                return;
             }
-        });
 
-        // ৪. ডাটাবেস থেকে ডাইনামিক লিঙ্ক ফেচিং
-        async function loadDatabaseContent() {
             try {
-                const response = await fetch('/api/links'); 
-                if (response.ok) {
-                    const data = await response.json();
-                    const container = document.getElementById('dynamicLinksContainer');
-                    
-                    if(data && data.length > 0) {
-                        container.innerHTML = '';
-                        data.forEach(item => {
-                            container.innerHTML += `
-                                <a href="${item.url || '#'}" class="list-item">
-                                    <span>${item.title}</span>
-                                    <i class="fa-solid fa-chevron-right"></i>
-                                </a>
-                            `;
-                        });
-                    }
+                const response = await fetch('/api/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                const result = await response.json();
+
+                if (result.success) {
+                    formMessage.style.color = '#00cc88';
+                    formMessage.innerText = "Account created successfully! Switching to Login...";
+                    setTimeout(() => {
+                        resetToLoginMode();
+                        formMessage.innerText = '';
+                    }, 2000);
+                } else {
+                    formMessage.style.color = '#ff4d4d';
+                    formMessage.innerText = result.message || "Registration failed!";
                 }
             } catch (error) {
-                console.log("Database fetch error, using default hardcoded links:", error);
+                formMessage.style.color = '#ff4d4d';
+                formMessage.innerText = "Server error! Try again.";
+            }
+        } else {
+            // লগইন প্রসেস
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                const result = await response.json();
+
+                if (result.success) {
+                    formMessage.style.color = '#00cc88';
+                    formMessage.innerText = "Logging in successfully...";
+                    
+                    setTimeout(() => {
+                        regModal.classList.remove('active');
+                        immiForm.reset();
+                        
+                        // ড্যাশবোর্ড স্টেট অ্যাক্টিভেট করা এবং ইউজারনেম বসানো
+                        document.getElementById('userDisplayName').innerText = username;
+                        document.getElementById('visitorView').style.display = 'none';
+                        document.getElementById('dashboardView').style.display = 'block';
+                    }, 1500);
+                } else {
+                    formMessage.style.color = '#ff4d4d';
+                    formMessage.innerText = result.message || "Invalid username or password!";
+                }
+            } catch (error) {
+                formMessage.style.color = '#ff4d4d';
+                formMessage.innerText = "Server error! Try again.";
             }
         }
-        window.addEventListener('DOMContentLoaded', loadDatabaseContent);
-    </script>
+    });
+
+    // ৪. ড্যাশবোর্ডের ফাইল আপলোড ও মেনু পপ-আপ কন্ট্রোল
+    function openFileUpload(type) {
+        document.getElementById('uploadTypeTitle').innerText = type;
+        document.getElementById('fileUploadModal').classList.add('active');
+    }
+
+    function closeUploadModal() {
+        document.getElementById('fileUploadModal').classList.remove('active');
+        document.getElementById('pdfInput').value = '';
+        document.getElementById('uploadStatus').innerText = '';
+    }
+
+    function toggleVisaDropdown() {
+        const dropdown = document.getElementById('visaDropdownMenu');
+        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    }
+
+    // ৫. পিডিএফ ফাইল আপলোড প্রসেস লজিক
+    document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const fileInput = document.getElementById('pdfInput');
+        const statusText = document.getElementById('uploadStatus');
+        
+        if (fileInput.files.length === 0) {
+            statusText.style.color = '#ff4d4d';
+            statusText.innerText = "Please select a PDF file first.";
+            return;
+        }
+
+        statusText.style.color = '#ffffff';
+        statusText.innerText = "Uploading PDF document...";
+
+        setTimeout(() => {
+            statusText.style.color = '#00ffcc';
+            statusText.innerText = "PDF Document submitted successfully!";
+            setTimeout(() => {
+                closeUploadModal();
+            }, 1500);
+        }, 2000);
+    });
+
+    // ৬. ডাটাবেস থেকে ডাইনামিক লিঙ্ক ফেচিং
+    async function loadDatabaseContent() {
+        try {
+            const response = await fetch('/api/links'); 
+            if (response.ok) {
+                const data = await response.json();
+                const container = document.getElementById('dynamicLinksContainer');
+                
+                if(data && data.length > 0) {
+                    container.innerHTML = '';
+                    data.forEach(item => {
+                        container.innerHTML += `
+                            <a href="${item.url || '#'}" class="list-item">
+                                <span>${item.title}</span>
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </a>
+                        `;
+                    });
+                }
+            }
+        } catch (error) {
+            console.log("Database fetch error, using default hardcoded links:", error);
+        }
+    }
+    window.addEventListener('DOMContentLoaded', loadDatabaseContent);
+</script>
 </body>
 </html>
-
